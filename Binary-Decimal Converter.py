@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-#by A_Asaker
-
+# Coded By : A_Asaker
+import os
 def DecToBinNat(num):
 	return bin(int(num))[2:]
 
@@ -38,7 +38,7 @@ def DecToBin(num):
 
 
 def IsMinusDec():
-	num=input("\n Enter The Decimal Number : ")
+	num=input("\n Enter The Decimal Number : ").strip()
 	print("")
 	if num.find("-")==-1:
 		return IsDec(num)
@@ -49,23 +49,25 @@ def IsMinusDec():
 
 
 def IsDec(num):
-	bol=0
-	for char in num:
-		if char not in ('0','1','2','3','4','5','6','7','8','9','.'):
-			bol=0
-			break
-		else:
-			bol=1
-	while bol==0:
-		num=input("\n Please Enter A Positive Decimal Number : ")
+	if str(num).count('.')<=1:
+		bol=0
 		for char in num:
 			if char not in ('0','1','2','3','4','5','6','7','8','9','.'):
 				bol=0
 				break
 			else:
 				bol=1
-	return DecToBin(num)
-
+		while bol==0:
+			num=input("\n Please Enter A Positive Decimal Number : ").strip()
+			for char in num:
+				if char not in ('0','1','2','3','4','5','6','7','8','9','.'):
+					bol=0
+					break
+				else:
+					bol=1
+		return DecToBin(num)
+	else:
+		return " Not A Valid Decimal Number ! "
 
 def BinToDecNat(num):
 	return int(num,2)
@@ -95,7 +97,7 @@ def BinToDec(num):
 		return Dec
 
 def IsMinusBin():
-	num=input("\n Enter The Binary Number : ")
+	num=input("\n Enter The Binary Number : ").strip()
 	print("")
 	if num.find("-")==-1:
 		return IsBin(num)
@@ -105,22 +107,62 @@ def IsMinusBin():
 		return " Not A Valid Binary Number ! "
 
 def IsBin(num):
-	bol=0
-	for z in num:
-		if z not in('0','1','.'):
-			bol=0
-			break
-		else:
-			bol=1
-	while bol==0:
-		num=input("\n Please Enter A Binary Number : ")
+	if str(num).count('.')<=1:
+		bol=0
 		for z in num:
 			if z not in('0','1','.'):
 				bol=0
 				break
 			else:
 				bol=1
-	return BinToDec(num)
+		while bol==0:
+			num=input("\n Please Enter A Binary Number : ").strip()
+			for z in num:
+				if z not in('0','1','.'):
+					bol=0
+					break
+				else:
+					bol=1
+		return BinToDec(num)
+	else:
+			return  " Not A Valid Binary Number ! "
+
+def DecToOct():
+	dec_num=input("\n Enter The Decimal Number : ").strip()
+	if (dec_num.isnumeric()):
+		return str(oct(int(dec_num)))[2:]
+
+def OctToDec():
+	dec_num=input("\n Enter The Octal Number : ").strip()
+	if (dec_num.isnumeric()):
+		return str(int(dec_num,8))
+
+def DecToHex():
+	dec_num=input("\n Enter The Decimal Number : ").strip()
+	is_float=0
+	if (dec_num.isnumeric() or dec_num.find(".")):
+		try :
+			int(dec_num)
+			is_float=0
+		except ValueError:
+			is_float=1
+	if (is_float==0):
+		return str(hex(int(dec_num)))
+	elif(is_float==1):
+		return str(float.hex(float(dec_num)))
+
+def HexToDec():
+	dec_num=input("\n Enter The Hexa-decimal Number : ").strip()
+	if (dec_num[0:2].lower()=="0x"):
+		try :
+			return str(int(dec_num,16))
+		except ValueError:
+			return str(float.fromhex(dec_num))
+
+str_res='''   ---------------------------\n ==> | {} |\n   ---------------------------
+______________________________________________________________________________
+______________________________________________________________________________
+'''
 
 def main():
 	print('''
@@ -128,18 +170,29 @@ def main():
  │  ＯＰＴＩＯＮＳ  ：│
  └────────────────────┘
 		''')
-	print(" (1) Decimal To Binary","\n")
-	print(" (2) Binary To Decimal","\n")
-	print(" (0) Exit","\n")
-	x=input(" #===================# >( 1 || 2 || 0 ): ")
+	print(" (1) Decimal To Binary")
+	print(" (2) Binary To Decimal")
+	print(" (3) Decimal To Octal [Natural Numbers Only]")
+	print(" (4) Octal To Decimal [Natural Numbers Only]")
+	print(" (5) Decimal To Hexa-decimal")
+	print(" (6) Hexa-decimal To Decimal")
+	print(" (7) Clear The Terminal [c]")
+	print(" (0) Exit [q]","\n")
+	x=input(" #===================# >( 1 || 2 || 3 || 4 || 5 || 0 ): ").strip()
 	if x == '1':
-		print("   ---------------------------\n "," ==> | ",IsMinusDec()," |\n   ---------------------------")
-		print('______________________________________________________________________________')
-		print('______________________________________________________________________________')
+		print(str_res.format(IsMinusDec()))
 	elif x == '2':
-		print("   ---------------------------\n "," ==> | ",IsMinusBin()," |\n   ---------------------------")
-		print('______________________________________________________________________________')
-		print('______________________________________________________________________________')
+		print(str_res.format(IsMinusBin()))
+	elif x=='3':
+		print(str_res.format(DecToOct()))
+	elif x=='4':
+		print(str_res.format(OctToDec()))
+	elif x=='5':
+		print(str_res.format(DecToHex()))
+	elif x=='6':
+		print(str_res.format(HexToDec()))
+	elif str(x)=="7" or str(x).lower()=='c':
+		os.system("clear")
 	elif str(x)=='0' or x.lower()=="q":
 		print('''
 				┌──────────────────────────────────────┐
