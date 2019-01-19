@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Coded By : A_Asaker
+#Use The New Version ,, This One Is An Old And Not Completed [:)
 import os
 def DecToBinNat(num):
 	return bin(int(num))[2:]
