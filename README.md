@@ -8,4 +8,7 @@
      -Decimal To Hexa-decimal    
      -Hexa-decimal To Decimal
  
+ * # Note: 
+   The Old Version Is Not Complete And Has Some Issues .
+       
  By : a-asaker
